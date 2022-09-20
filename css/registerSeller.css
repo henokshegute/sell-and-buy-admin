@@ -1,0 +1,155 @@
+body {
+  background-color:  rgb(230, 230, 230);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+}
+/* .form-container {
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  margin-top: 30%;
+  width: 400px;
+  margin-left: 100px;
+}
+.form-control{
+  width: 350px;
+  border-radius: 0;
+  border-bottom:1px solid rgb(0, 0, 0);
+  border-top:1px solid #fff;
+  border-left:1px solid #fff;
+  border-right:1px solid #fff;
+  
+} */
+
+.formcard{
+  padding: 30px 40px;
+  /* margin-top: 0px; */
+  background-color: white;
+  /* margin-bottom: 60px; */
+  border: none !important;
+  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)
+}
+.blue-text
+{
+  color: #00BCD4
+}
+.form-control-label
+{
+  margin-bottom: 0
+}
+input, textarea, button
+{
+  padding: 8px 15px;
+  border-radius: 5px !important;
+  margin: 5px 0px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  font-size: 18px !important;
+  font-weight: 300
+}
+input:focus, textarea:focus{
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #00BCD4;
+  outline-width: 0;
+  font-weight: 400
+}.btn-block{
+  text-transform: uppercase;
+  font-size: 15px !important;
+  font-weight: 400;
+  height: 43px;
+  cursor: pointer
+}.btn-block:hover{
+  color: #fff !
+}button:focus{
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline-width: 0
+}
+.form-control:focus {
+border-color: #ffffff;
+box-shadow: 0 2px 0px #ef6721;
+}
+.sign-in-heading {
+  margin-bottom: 20px;
+}
+.alert-success, .alert-errors {
+  display: none;
+}
+a{ color:white; 
+font-family: Arial, sans-serif;
+font-weight:bold;
+font-size:15px;
+}
+
+.card{
+  background-color:rgb(230, 230, 230);
+  left: 100px;
+  width: 75rem;
+  /* margin-top: 60px; */
+  }
+
+/* Split the screen in half */
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Style the image inside the centered container, if needed */
+
+
+
+h3{
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+p{
+  font-family: Arial, sans-serif;
+}
+/* sidde nav bar */
+
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+/* head card for all */
+.headcard{
+  margin-left: 100px;
+  margin-top: 20px;
+  width: 70rem;
+  /* height: 200px; */
+  background-color:rgb(230, 230, 230);
+  border-color: #ffffff;
+  border-radius: 5px;
+}
+
+.cardtext{
+  
+  margin-left:70px;
+  /* margin-top: -190px; */
+  /* text-align:center; */
+  font-size:45px;
+}
+/* font */
+/* p.e{
+
+} */

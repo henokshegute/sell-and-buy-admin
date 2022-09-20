@@ -1,0 +1,103 @@
+body {
+    /* background-image: url('https://incontrolmobile.mastercard.com/assets/welcome_background.png');  */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    /* height: 100vh; */
+}
+.form-container {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    margin-top: 30%;
+    width: 400px;
+    margin-left: 100px;
+}
+.form-control{
+    width: 350px;
+    border-radius: 0;
+    border-bottom:1px solid rgb(0, 0, 0);
+    border-top:1px solid #fff;
+    border-left:1px solid #fff;
+    border-right:1px solid #fff;
+    
+}
+
+.form-control:focus {
+  border-color: #ffffff;
+  box-shadow: 0 2px 0px #ef6721;
+}
+.sign-in-heading {
+    margin-bottom: 20px;
+}
+.alert-success, .alert-errors {
+    display: none;
+}
+a{ color:white; 
+  margin-right: 50px;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.card{
+  background-color:rgb(230, 230, 230);
+  left: 200px;
+  width: 70rem;
+  /* margin-top: 60px; */
+  }
+
+
+/* Split the screen in half */
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+  }
+  
+  /* Control the left side */
+  .left {
+    background-image: url('https://incontrolmobile.mastercard.com/assets/welcome_background.png'); 
+    left: 0;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    /* margin-top: 20%; */
+    /* opacity: 100%; */
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  .welcome{
+    font-family: Arial, sans-serif;
+    margin-top: 40%;
+    text-align: center;
+
+  }
+  p{
+    font-family: Arial, sans-serif;
+  }
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+ 

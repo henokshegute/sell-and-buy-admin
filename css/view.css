@@ -1,0 +1,226 @@
+body {
+  background-color:  rgb(230, 230, 230);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+}
+.form-container {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    margin-top: 30%;
+    width: 500px;
+    margin-left: 100px;
+}
+
+
+.file-submit {
+  position: relative;
+  background-color:#ef6721;
+  border: none;
+  font-size: 20px;
+  margin-top:20px;
+  margin-left: 300px;
+  color: #FFFFFF;
+  width:600px;
+  border-radius: 8px;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+.file-submit:after {
+  content: "";
+  background: #f1f1f1;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.file-submit:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+.form-control{
+    margin-top:20px;
+    margin-left: 300px;
+    width: 600px;
+    border-color:#6c757d;
+}
+
+.sign-in-heading {
+    margin-bottom: 20px;
+}
+.alert-success, .alert-errors {
+    display: none;
+}
+
+.paging-nav {
+  text-align: left;
+  padding-top: 0px;
+}
+
+.paging-nav a {
+  margin: auto 1px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 1px 7px;
+  background: #91b9e6;
+  color: white;
+  border-radius: 3px;
+}
+
+.paging-nav .selected-page {
+  background: #187ed5;
+  font-weight: bold;
+}
+
+.paging-nav,
+#tableData {
+  width: 400px;
+  margin-left:0px ;
+  font-family: Arial, sans-serif;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.filename{
+  /* margin-left:20px; */
+  text-decoration: none;
+  color:rgb(67, 67, 70);
+}
+a{ color:white; 
+  margin-right: 50px;
+  font-weight:bold;
+  font-size:15px;
+  }
+  .card{
+    background-color:rgb(230, 230, 230);
+    left: 200px;
+    width: 70rem;
+    /* margin-top: 60px; */
+    }
+  
+  h3{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+  }
+  p{
+    font-family: Arial, sans-serif;
+  }
+/* Split the screen in half */
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    margin-top: 20%;
+    opacity: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+img {
+    max-width: 100%;
+    max-height: 100%;
+    
+}
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+  .sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:orangered;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  .sidenav .info  a{
+    margin-top: 0px;
+    margin-bottom: -8px;
+    margin-left: 10px;
+    font-size: 9px;
+    text-align: left;
+  }
+  
+  .sidenav a {
+    margin-bottom: 390px;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
+    text-align: center;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  .headcard{
+    margin-left: 200px;
+    margin-top: 20px;
+    width: 70rem;
+    height: 200px;
+    background-color:rgb(230, 230, 230);
+    border-color: #ffffff;
+    border-radius: 5px;
+  }
+  .cardimg{
+    margin-left: 20px;
+    width: 200px;
+  }
+  .cardtext{
+    
+    margin-left:300px;
+    margin-top: -190px;
+    /* text-align:center; */
+    font-size:45px;
+  }
