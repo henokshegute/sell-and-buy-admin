@@ -149,6 +149,11 @@ p{
   /* text-align:center; */
   font-size:45px;
 }
+.farm_table{
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 /* font */
 /* p.e{
 

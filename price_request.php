@@ -11,6 +11,7 @@ $admin_idQ = mysqli_query($connect, $admin_id);
 $farm = "SELECT contract_name from coffee_contract";
 $farmList = mysqli_query($connect, $farm);
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +79,7 @@ $farmList = mysqli_query($connect, $farm);
                             <strong> Note !</strong> Data saving failed.
                         </div>
                         <div class="formcard" id="formcard" onsubmit="event.preventDefault()">
-                            <h5 class="text-center mb-4">Seller Registration Form</h5>
+                            <h5 class="text-center mb-4">Price Request form</h5>
                             <form class="form-card" id="serializeForm">
                                 <div class="row justify-content-between text-left">
                                     <div class="form-group col-sm-6 flex-column d-flex">
@@ -118,38 +119,48 @@ $farmList = mysqli_query($connect, $farm);
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
             <!--  -->
-        </div>
-        <script type="text/javascript">
-            $(function() {
-                $('.alert-danger').hide(0, function() {
 
+            <!--  -->
+            <!--  -->
+
+
+            <script type="text/javascript">
+                $(function() {
+                    $('.alert-danger').hide(0, function() {
+
+                    });
+                    $("#button").click(function() {
+                        var dataString = $("#serializeForm").serialize();
+                        var price = $("#price").val();
+                        var farm = $("#farm").val();
+                        if (price == "" || farm == "Select Farm") {
+                            $(".alert-danger").fadeIn();
+                            $(".alert-danger").fadeOut(800);
+                        } else {
+                            $.ajax({
+                                type: "POST",
+                                url: "savepricerequest.php",
+                                data: dataString,
+                                success: function(data) {
+                                    $(".alert-success").fadeIn();
+                                    $(".alert-success").fadeOut(800);
+                                    $("#serializeForm")[0].reset();
+                                }
+                            });
+                        }
+                    });
                 });
-                $("#button").click(function() {
-                    var dataString = $("#serializeForm").serialize();
-                    var price = $("#price").val();
-                    var farm = $("#farm").val();
-                    if (price == "" || farm == "Select Farm") {
-                        $(".alert-danger").fadeIn();
-                        $(".alert-danger").fadeOut(800);
-                    } else {
-                        $.ajax({
-                            type: "POST",
-                            url: "savepricerequest.php",
-                            data: dataString,
-                            success: function(data) {
-                                $(".alert-success").fadeIn();
-                                $(".alert-success").fadeOut(800);
-                                $("#serializeForm")[0].reset();
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
+            </script>
+
+            <!--  -->
+            <!--  -->
+        </div>
+
 </body>
 
 </html>

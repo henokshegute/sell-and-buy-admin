@@ -8,6 +8,8 @@ include "app/DBfetch.php";
 $Uname = $user["email"];
 $admin_id = "SELECT * FROM company_users WHERE role='admin' && telegram_username='$Uname' ";
 $admin_idQ = mysqli_query($connect, $admin_id);
+$query = "SELECT * FROM coffee_contract";
+$result = mysqli_query($connect, $query);
 
 ?>
 <!DOCTYPE html>
@@ -99,35 +101,84 @@ $admin_idQ = mysqli_query($connect, $admin_id);
                     </div>
                 </div>
             </div>
-        </div>
-        <!--  -->
-    </div>
-    <script type="text/javascript">
-        $(function() {
-            $('.alert-danger').hide(0, function() {
 
-            });
-            $("#button").click(function() {
-                var fname = $("#fname").val();
-                var dataString = $("#serializeForm").serialize();
-                if (fname == "") {
-                    $(".alert-danger").fadeIn();
-                    $(".alert-danger").fadeOut(800);
-                } else {
-                    $.ajax({
-                        type: "POST",
-                        url: "savefarm.php",
-                        data: dataString,
-                        success: function(data) {
-                            $(".alert-success").fadeIn();
-                            $(".alert-success").fadeOut(800);
-                            $("#serializeForm")[0].reset();
+            <div id="farm_table" class="farm_table">
+
+                <table class="table table-bordered " style="border-color: #8d9093; background-color:white; ">
+                    <tr style="background-color: #e7feff;">
+                        <th style="text-align: center; padding:20px">Id</th>
+                        <th style="text-align: center; padding:20px">Farm Name</th>
+                        <th style="text-align: center; padding:20px">Action</th>
+                    </tr>
+                    <?php
+                    while ($row = mysqli_fetch_array($result)) {
+
+                    ?>
+                        <tr id="<?php echo $row['id'] ?>">
+                            <td><?php echo $row["id"]; ?></td>
+                            <td><?php echo $row["contract_name"]; ?></td>
+                            <td><button class="btn btn-danger remove-record">Delete</button></td>
+                        </tr>
+
+                    <?php
+                    }
+                    ?>
+                </table>
+            </div>
+            <script type="text/javascript">
+                $(function() {
+                    $('.alert-danger').hide(0, function() {
+
+                    });
+                    $("#button").click(function() {
+                        var fname = $("#fname").val();
+                        var dataString = $("#serializeForm").serialize();
+                        if (fname == "") {
+                            $(".alert-danger").fadeIn();
+                            $(".alert-danger").fadeOut(800);
+                        } else {
+                            $.ajax({
+                                type: "POST",
+                                url: "savefarm.php",
+                                data: dataString,
+                                success: function(data) {
+                                    $(".alert-success").fadeIn();
+                                    $(".alert-success").fadeOut(800);
+                                    $("#serializeForm")[0].reset();
+                                }
+                            });
                         }
                     });
-                }
-            });
-        });
-    </script>
+                });
+            </script>
+            <script type="text/javascript">
+                $(".remove-record").click(function() {
+                    var id = $(this).parents("tr").attr("id");
+                    console.log(id);
+                    if (confirm('Are you sure to delete this record ?')) {
+                        $.ajax({
+                            url: 'farmdelet.php',
+                            type: 'GET',
+                            data: {
+                                id: id,
+
+                            },
+                            error: function() {
+                                alert('Something is wrong, couldn\'t delete record');
+                            },
+                            success: function(data) {
+                                $("#" + id).remove();
+                                alert("Record delete successfully.");
+
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+        <!--  -->
+        <!--  -->
+    </div>
 </body>
 
 </html>
