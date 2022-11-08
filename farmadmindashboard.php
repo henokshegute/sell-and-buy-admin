@@ -105,7 +105,7 @@ $farmList = mysqli_query($connect, $farm);
             while ($row = mysqli_fetch_array($result)) {
               $fullname = $row["firstname"] . " " . $row["lastname"];
               $latlong = $row['latitude'] . "_" . $row['longitude'];
-              list($date, $time) = explode(" ", $row['time']);
+              
             ?>
               <tr>
 
@@ -121,7 +121,7 @@ $farmList = mysqli_query($connect, $farm);
                 <td><a href="map.php?cordinates=<?php echo $latlong
                                                 ?>">View</a></td>
                 <td><?php echo $row["transaction_date"]; ?></td>
-                <td><?php echo $time; ?></td>
+                <td><?php echo $row["time"]; ?></td>
               </tr>
 
             <?php
