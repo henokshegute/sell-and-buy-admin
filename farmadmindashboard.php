@@ -105,7 +105,7 @@ $farmList = mysqli_query($connect, $farm);
             while ($row = mysqli_fetch_array($result)) {
               $fullname = $row["firstname"] . " " . $row["lastname"];
               $latlong = $row['latitude'] . "_" . $row['longitude'];
-              
+
             ?>
               <tr>
 
@@ -147,9 +147,9 @@ $farmList = mysqli_query($connect, $farm);
       var from_date = $('#from_date').val();
       var to_date = $('#to_date').val();
       var filter_farm = $('#filter_farm').val();
-      if ((from_date != '' && to_date != '') && filter_farm == '') {
+      if ((from_date != '' && to_date != '')) {
         $.ajax({
-          url: "reportfilter.php",
+          url: "filterforfarmadmin.php",
           method: "POST",
           data: {
             from_date: from_date,
@@ -159,31 +159,7 @@ $farmList = mysqli_query($connect, $farm);
             $('#report_table').html(data);
           }
         });
-      } else if (filter_farm != '' && (from_date == '' && to_date == '')) {
-        $.ajax({
-          url: "filterByFarm.php",
-          method: "POST",
-          data: {
-            filter_farm: filter_farm
-          },
-          success: function(data) {
-            $('#report_table').html(data);
-          }
-        });
-      } else if (filter_farm != '' && (from_date != '' && to_date != '')) {
-        $.ajax({
-          url: "filterbyFarmDate.php",
-          method: "POST",
-          data: {
-            from_date: from_date,
-            to_date: to_date,
-            filter_farm: filter_farm
-          },
-          success: function(data) {
-            $('#report_table').html(data);
-          }
-        });
-      } else {
+      }   else {
         alert("Please Select values properly");
       }
     });
