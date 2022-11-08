@@ -1,13 +1,16 @@
 <?php require_once 'app/config.php'; ?>
 <?php if (!defined("APP_NAME")) exit(); ?>
-<?php $user = auth_user();
-if ($user === null) exit();
+<?php
+$user_farm = auth_user_farm();
+if ($user_farm === null) exit();
 ?>
 <?php
 include "app/DBfetch.php";
 include "saveseller.php";
+$userData = $_SESSION["user"];
+$farmData = $userData["assigned_farm"];
 $query = "SELECT transaction.transaction_id,transaction.zone,transaction.neighborhood,transaction.contract_name,transaction.seller_name,
-transaction.quantity,transaction.price,transaction.total,transaction.longitude,transaction.latitude,transaction.transaction_date,transaction.time,company_users.firstname,company_users.lastname FROM transaction INNER JOIN company_users ON transaction.buyer_telegram_id = company_users.telegram_id ORDER BY transaction_id DESC";
+transaction.quantity,transaction.price,transaction.total,transaction.longitude,transaction.latitude,transaction.transaction_date,transaction.time,company_users.firstname,company_users.lastname FROM transaction INNER JOIN company_users ON transaction.buyer_telegram_id = company_users.telegram_id WHERE contract_name='$farmData' ORDER BY transaction_id DESC";
 $result = mysqli_query($connect, $query);
 $farm = "SELECT contract_name from coffee_contract";
 $farmList = mysqli_query($connect, $farm);
@@ -25,11 +28,18 @@ $farmList = mysqli_query($connect, $farm);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="css/dashboard.css" />
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
   <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-
+  <script type="text/javascript"></script>
+  <script type="text/javascript" src="ajax/paging.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#report_table').paging({
+        limit: 10
+      });
+    });
+  </script>
 </head>
 
 <body>
@@ -47,18 +57,6 @@ $farmList = mysqli_query($connect, $farm);
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
             <a class="nav-link active" aria-current="true" href="dashboard.php">Transaction Report</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="register_seller.php" tabindex="-1" aria-disabled="true">Register Seller</a>
-          </li>
-          <li class="nav-item" id="log">
-            <a class="nav-link " href="scaleManRegistration.php">Register Scale Man</a>
-          </li>
-          <li class="nav-item" id="log">
-            <a class="nav-link " href="farmRegistration.php">Register Farm</a>
-          </li>
-          <li class="nav-item" id="log">
-            <a class="nav-link " href="price_request.php">Price Change</a>
           </li>
           <li class="nav-item" id="log">
             <a class="nav-link " href="logout.php" style="color:red">Logout</a>
@@ -78,20 +76,6 @@ $farmList = mysqli_query($connect, $farm);
             <div class="form-group col-sm-6 flex-column d-flex">
               <input class="form-control" type="text" name="to_date" id="to_date" placeholder="To Date" />
             </div>
-            <div class="form-group col-sm-6 flex-column d-flex" style="margin-top: 20px; width: 350px;">
-              <select name="filter_farm" id="filter_farm" class="form-control" required>
-
-                <option value="">Select Farm</option>
-                <?php
-                while ($far = mysqli_fetch_array($farmList)) {
-                  $name = $far["contract_name"];
-                ?>
-                  <option value=<?php echo $name ?>><?php echo $name ?></option>
-                <?php
-                }
-                ?>
-              </select>
-            </div>
             <div class="form-group col-sm-6 flex-column d-flex">
               <input type="button" name="filter" id="filter" value="Filter" class="btn btn-info" style="margin-top:10px" />
             </div>
@@ -100,7 +84,7 @@ $farmList = mysqli_query($connect, $farm);
 
 
         </div>
-        <div id="report_table" class="report_table">
+        <div id="report_table" class="table">
 
           <table class="table table-bordered " style="border-color: #8d9093; background-color:white; ">
             <tr style="background-color: #e7feff;">
@@ -202,17 +186,6 @@ $farmList = mysqli_query($connect, $farm);
       } else {
         alert("Please Select values properly");
       }
-    });
-  });
-</script>
-<script type="text/javascript"></script>
-<style type="text/css"> </style>
-<script type="text/javascript" src="ajax/paging.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-
-    $('#report_table').paging({
-      limit: 10
     });
   });
 </script>

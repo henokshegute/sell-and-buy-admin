@@ -5,9 +5,11 @@ $coordinates = 'new google.maps.LatLng(' . $latitude . ',' . $longitude . ')';
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/mapStyle.css">
+    <link rel="icon" href="images/crlogo.jpg">
     <title>Transaction Point</title>
 </head>
 
@@ -31,15 +33,17 @@ $coordinates = 'new google.maps.LatLng(' . $latitude . ',' . $longitude . ')';
             function initMap() {
                 var mapOptions = {
                     zoom: 18,
-                    center: {<?php echo 'lat:' .  $latitude . ', lng:' . $longitude; ?>}, //{lat: --- , lng: ....}
+                    mapTypeId: 'satellite',
+                    center: {
+                        <?php echo 'lat:' .  $latitude . ', lng:' . $longitude; ?>}, //{lat: --- , lng: ....}
                     mapTypeId: google.maps.MapTypeId.SATELITE
                 };
 
                 var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
                 mark = 'images/mark.png';
-                startPoint = {<?php echo 'lat:' . $latitude . ', lng:' . $longitude; ?>};
-
+                startPoint = {
+                    <?php echo 'lat:' . $latitude . ', lng:' . $longitude; ?>};
                 var marker = new google.maps.Marker({
                     position: startPoint,
                     map: map,

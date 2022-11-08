@@ -46,7 +46,7 @@ a #log{ color:white;
 .card{
   background-color:rgb(230, 230, 230);
   left: 100px;
-  width: 75rem;
+  width: 80rem;
   /* margin-top: 60px; */
   }
 
@@ -99,15 +99,15 @@ table {
   background: rgb(172, 172, 172);
 }
 
-.paging-nav {
-  text-align: left;
-  padding-top: 0px;
-}
 h3{
   font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 p{
   font-family: Arial, sans-serif;
+}
+.paging-nav {
+text-align: left;
+  padding-top: 0px;
 }
 .paging-nav a {
   margin: auto 1px;
@@ -148,6 +148,9 @@ p{
   /* margin-top: -190px; */
   /* text-align:center; */
   font-size:45px;
+}
+.cardtext{
+  text-align: center;
 }
 /* font */
 /* p.e{

@@ -6,9 +6,10 @@ if ($user === null) exit();
 <?php
 include "app/DBfetch.php";
 $Uname = $user["email"];
-$admin_id = "SELECT * FROM company_users WHERE role='admin' && telegram_username='$Uname' ";
+$admin_id = "SELECT * FROM company_users WHERE role='super admin' && telegram_username='$Uname' ";
 $admin_idQ = mysqli_query($connect, $admin_id);
-
+$query = "SELECT * FROM company_users WHERE role='scale man'";
+$result = mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,11 +19,23 @@ $admin_idQ = mysqli_query($connect, $admin_id);
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dashboard</title>
-    <link rel="icon" href="images/masterlogo.png">
+    <link rel="icon" href="images/crlogo.jpg">
     <meta name="author" content="FrontendScript" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/registerSeller.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript"></script>
+    <script type="text/javascript" src="ajax/paging.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#user_table').paging({
+                limit: 10
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -30,7 +43,7 @@ $admin_idQ = mysqli_query($connect, $admin_id);
     <div>
         <div class="headcard">
             <div class="cardtext">
-                <p class="e"><b>Outgrower System Administrative Dashboard</b></p>
+                <p class="e"><b>Outgrower Dashboard</b></p>
             </div>
         </div>
     </div>
@@ -127,6 +140,39 @@ $admin_idQ = mysqli_query($connect, $admin_id);
                 </div>
             </div>
             <!--  -->
+            <div id="user_table" class="user_table">
+
+                <table class="table table-bordered " style="border-color: #8d9093; background-color:white; ">
+                    <tr style="background-color: #e7feff;">
+                        <th style="text-align: center; padding:20px">Id</th>
+                        <th style="text-align: center; padding:20px">First Name</th>
+                        <th style="text-align: center; padding:20px">Last Name</th>
+                        <th style="text-align: center; padding:20px">Woreda</th>
+                        <th style="text-align: center; padding:20px">Telegram Username</th>
+                        <th style="text-align: center; padding:20px">Phone</th>
+                        <th style="text-align: center; padding:20px">Action</th>
+
+                    </tr>
+                    <?php
+                    while ($row = mysqli_fetch_array($result)) {
+
+                    ?>
+                        <tr id="<?php echo $row['user_id'] ?>">
+
+                            <td><?php echo $row["user_id"]; ?></td>
+                            <td><?php echo $row["firstname"]; ?></td>
+                            <td><?php echo $row["lastname"]; ?></td>
+                            <td><?php echo $row["woreda"]; ?></td>
+                            <td><?php echo $row["telegram_username"]; ?></td>
+                            <td><?php echo $row["phone_number"]; ?></td>
+                            <td><button class="btn btn-danger remove-record">Delete</button></td>
+                        </tr>
+
+                    <?php
+                    }
+                    ?>
+                </table>
+            </div>
         </div>
         <script type="text/javascript">
             $(function() {
@@ -156,6 +202,30 @@ $admin_idQ = mysqli_query($connect, $admin_id);
                         });
                     }
                 });
+            });
+        </script>
+        <script type="text/javascript">
+            $(".remove-record").click(function() {
+                var id = $(this).parents("tr").attr("id");
+                console.log(id);
+                if (confirm('Are you sure to delete this record ?')) {
+                    $.ajax({
+                        url: 'ScaleManDelet.php',
+                        type: 'GET',
+                        data: {
+                            id: id,
+
+                        },
+                        error: function() {
+                            alert('Something is wrong, couldn\'t delete record');
+                        },
+                        success: function(data) {
+                            $("#" + id).remove();
+                            alert("Record delete successfully.");
+
+                        }
+                    });
+                }
             });
         </script>
 </body>

@@ -154,6 +154,39 @@ p{
   margin-left: auto;
   margin-right: auto;
 }
+.user_tabele{
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.paging-nav {
+  text-align: left;
+    padding-top: 0px;
+  }
+  .paging-nav a {
+    margin: auto 1px;
+    text-decoration: none;
+    display: inline-block;
+    padding: 1px 7px;
+    background: #91b9e6;
+    color: white;
+    border-radius: 3px;
+  }
+  
+  .paging-nav .selected-page {
+    background: #187ed5;
+    font-weight: bold;
+  }
+  
+  .paging-nav,
+  #tableData {
+    width: 400px;
+    margin-left:0px ;
+    font-family: Arial, sans-serif;
+  }
+  .cardtext{
+    text-align: center;
+  }
 /* font */
 /* p.e{
 

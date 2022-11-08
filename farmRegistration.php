@@ -20,7 +20,7 @@ $result = mysqli_query($connect, $query);
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dashboard</title>
-    <link rel="icon" href="images/masterlogo.png">
+    <link rel="icon" href="images/crlogo.jpg">
     <meta name="author" content="FrontendScript" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/registerSeller.css" />
@@ -32,7 +32,7 @@ $result = mysqli_query($connect, $query);
     <div>
         <div class="headcard">
             <div class="cardtext">
-                <p class="e"><b>Outgrower System Administrative Dashboard</b></p>
+                <p class="e"><b>Outgrower Dashboard</b></p>
             </div>
         </div>
     </div>
@@ -154,7 +154,6 @@ $result = mysqli_query($connect, $query);
             <script type="text/javascript">
                 $(".remove-record").click(function() {
                     var id = $(this).parents("tr").attr("id");
-                    console.log(id);
                     if (confirm('Are you sure to delete this record ?')) {
                         $.ajax({
                             url: 'farmdelet.php',
