@@ -49,6 +49,9 @@ $farmList = mysqli_query($connect, $farm);
             <a class="nav-link active" aria-current="true" href="dashboard.php">Transaction Report</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link " href="pickingreport.php" tabindex="-1" aria-disabled="true">Picking Report</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="register_seller.php" tabindex="-1" aria-disabled="true">Register Seller</a>
           </li>
           <li class="nav-item" id="log">

@@ -25,7 +25,7 @@ if (isset($_POST["from_date"], $_POST["to_date"])) {
     include "app/DBfetch.php";
     $output = '';
     $query = "SELECT transaction.transaction_id,transaction.zone,transaction.neighborhood,transaction.contract_name,transaction.seller_name,
-transaction.quantity,transaction.price,transaction.total,transaction.longitude,transaction.latitude,transaction.transaction_date,transaction.time,company_users.firstname,company_users.lastname FROM transaction INNER JOIN company_users ON transaction.buyer_telegram_id = company_users.telegram_id  WHERE transaction_date BETWEEN '" . $_POST["from_date"] . "' AND '" . $_POST["to_date"] . "' AND contract_name='$farmData' 
+transaction.quantity,transaction.price,transaction.total,transaction.longitude,transaction.latitude,transaction.transaction_date,transaction.time,transaction.transaction_date,transaction.time,company_users.firstname,company_users.lastname FROM transaction INNER JOIN company_users ON transaction.buyer_telegram_id = company_users.telegram_id  WHERE transaction_date BETWEEN '" . $_POST["from_date"] . "' AND '" . $_POST["to_date"] . "' AND contract_name='$farmData' 
       ";
     $result = mysqli_query($connect, $query);
     $output .= '  
@@ -41,7 +41,6 @@ transaction.quantity,transaction.price,transaction.total,transaction.longitude,t
                 <th style="text-align: center; padding:20px">Quantity</th>
                 <th style="text-align: center; padding:20px">Price 1kg</th>
                 <th style="text-align: center; padding:20px">Total Price</th>   
-                <th style="text-align: center; padding:20px">Location</th>
                 <th style="text-align: center; padding:20px">Date</th>
                 <th style="text-align: center; padding:20px">Time</th>
                 </tr>  
@@ -61,7 +60,6 @@ transaction.quantity,transaction.price,transaction.total,transaction.longitude,t
                          <td>' . $row["seller_name"] . '</td>
                          <td>' . $row["quantity"] . '</td>  
                          <td>' . $row["price"] . '</td>  
-                         <td>' . $row["total"] . '</td> 
                          <td>' . $row["total"] . '</td> 
                          <td>' . $row["transaction_date"] . '</td> 
                          <td>' . $row["time"] . '</td> 

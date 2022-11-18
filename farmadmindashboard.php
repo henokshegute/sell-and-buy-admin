@@ -2,7 +2,8 @@
 <?php if (!defined("APP_NAME")) exit(); ?>
 <?php
 $user_farm = auth_user_farm();
-if ($user_farm === null) exit();
+$user = auth_user();
+if ($user_farm === null && $user == null) exit();
 ?>
 <?php
 include "app/DBfetch.php";
@@ -56,7 +57,10 @@ $farmList = mysqli_query($connect, $farm);
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="true" href="dashboard.php">Transaction Report</a>
+            <a class="nav-link active" aria-current="true" href="farmadmindashboard.php">Transaction Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="true" href="farmadminpickingreport.php">Picking Report</a>
           </li>
           <li class="nav-item" id="log">
             <a class="nav-link " href="logout.php" style="color:red">Logout</a>
@@ -159,7 +163,7 @@ $farmList = mysqli_query($connect, $farm);
             $('#report_table').html(data);
           }
         });
-      }   else {
+      } else {
         alert("Please Select values properly");
       }
     });
