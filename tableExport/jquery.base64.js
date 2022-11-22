@@ -34,7 +34,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
-*/
+ */
 
 /* base64 encode/decode compatible with window.btoa/atob
  *
@@ -57,134 +57,63 @@
  * If the input length is not a multiple of 4, or contains invalid characters
  *   then an exception is thrown.
  */
- 
-jQuery.base64 = ( function( $ ) {
-  
-  var _PADCHAR = "=",
-    _ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
-    _VERSION = "1.0";
 
+jQuery.base64 = (function ($) {
+  // private property
+  var keyStr =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
-  function _getbyte64( s, i ) {
-    // This is oddly fast, except on Chrome/V8.
-    // Minimal or no improvement in performance by using a
-    // object with properties mapping chars to value (eg. 'A': 0)
-
-    var idx = _ALPHA.indexOf( s.charAt( i ) );
-
-    if ( idx === -1 ) {
-      throw "Cannot decode base64";
-    }
-
-    return idx;
-  }
-  
-  
-  function _decode( s ) {
-    var pads = 0,
-      i,
-      b10,
-      imax = s.length,
-      x = [];
-
-    s = String( s );
-    
-    if ( imax === 0 ) {
-      return s;
-    }
-
-    if ( imax % 4 !== 0 ) {
-      throw "Cannot decode base64";
-    }
-
-    if ( s.charAt( imax - 1 ) === _PADCHAR ) {
-      pads = 1;
-
-      if ( s.charAt( imax - 2 ) === _PADCHAR ) {
-        pads = 2;
+  // private method for UTF-8 encoding
+  function utf8Encode(string) {
+    string = string.replace(/\r\n/g, "\n");
+    var utftext = "";
+    for (var n = 0; n < string.length; n++) {
+      var c = string.charCodeAt(n);
+      if (c < 128) {
+        utftext += String.fromCharCode(c);
+      } else if (c > 127 && c < 2048) {
+        utftext += String.fromCharCode((c >> 6) | 192);
+        utftext += String.fromCharCode((c & 63) | 128);
+      } else {
+        utftext += String.fromCharCode((c >> 12) | 224);
+        utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+        utftext += String.fromCharCode((c & 63) | 128);
       }
-
-      // either way, we want to ignore this last block
-      imax -= 4;
     }
-
-    for ( i = 0; i < imax; i += 4 ) {
-      b10 = ( _getbyte64( s, i ) << 18 ) | ( _getbyte64( s, i + 1 ) << 12 ) | ( _getbyte64( s, i + 2 ) << 6 ) | _getbyte64( s, i + 3 );
-      x.push( String.fromCharCode( b10 >> 16, ( b10 >> 8 ) & 0xff, b10 & 0xff ) );
-    }
-
-    switch ( pads ) {
-      case 1:
-        b10 = ( _getbyte64( s, i ) << 18 ) | ( _getbyte64( s, i + 1 ) << 12 ) | ( _getbyte64( s, i + 2 ) << 6 );
-        x.push( String.fromCharCode( b10 >> 16, ( b10 >> 8 ) & 0xff ) );
-        break;
-
-      case 2:
-        b10 = ( _getbyte64( s, i ) << 18) | ( _getbyte64( s, i + 1 ) << 12 );
-        x.push( String.fromCharCode( b10 >> 16 ) );
-        break;
-    }
-
-    return x.join( "" );
-  }
-  
-  
-  function _getbyte( s, i ) {
-    var x = s.charCodeAt( i );
-
-    if ( x > 255 ) {
-      throw "INVALID_CHARACTER_ERR: DOM Exception 5";
-    }
-    
-    return x;
+    return utftext;
   }
 
-
-  function _encode( s ) {
-    if ( arguments.length !== 1 ) {
-      throw "SyntaxError: exactly one argument required";
+  function encode(input) {
+    var output = "";
+    var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+    var i = 0;
+    input = utf8Encode(input);
+    while (i < input.length) {
+      chr1 = input.charCodeAt(i++);
+      chr2 = input.charCodeAt(i++);
+      chr3 = input.charCodeAt(i++);
+      enc1 = chr1 >> 2;
+      enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+      enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+      enc4 = chr3 & 63;
+      if (isNaN(chr2)) {
+        enc3 = enc4 = 64;
+      } else if (isNaN(chr3)) {
+        enc4 = 64;
+      }
+      output =
+        output +
+        keyStr.charAt(enc1) +
+        keyStr.charAt(enc2) +
+        keyStr.charAt(enc3) +
+        keyStr.charAt(enc4);
     }
-
-    s = String( s );
-
-    var i,
-      b10,
-      x = [],
-      imax = s.length - s.length % 3;
-
-    if ( s.length === 0 ) {
-      return s;
-    }
-
-    for ( i = 0; i < imax; i += 3 ) {
-      b10 = ( _getbyte( s, i ) << 16 ) | ( _getbyte( s, i + 1 ) << 8 ) | _getbyte( s, i + 2 );
-      x.push( _ALPHA.charAt( b10 >> 18 ) );
-      x.push( _ALPHA.charAt( ( b10 >> 12 ) & 0x3F ) );
-      x.push( _ALPHA.charAt( ( b10 >> 6 ) & 0x3f ) );
-      x.push( _ALPHA.charAt( b10 & 0x3f ) );
-    }
-
-    switch ( s.length - imax ) {
-      case 1:
-        b10 = _getbyte( s, i ) << 16;
-        x.push( _ALPHA.charAt( b10 >> 18 ) + _ALPHA.charAt( ( b10 >> 12 ) & 0x3F ) + _PADCHAR + _PADCHAR );
-        break;
-
-      case 2:
-        b10 = ( _getbyte( s, i ) << 16 ) | ( _getbyte( s, i + 1 ) << 8 );
-        x.push( _ALPHA.charAt( b10 >> 18 ) + _ALPHA.charAt( ( b10 >> 12 ) & 0x3F ) + _ALPHA.charAt( ( b10 >> 6 ) & 0x3f ) + _PADCHAR );
-        break;
-    }
-
-    return x.join( "" );
+    return output;
   }
-
 
   return {
-    decode: _decode,
-    encode: _encode,
-    VERSION: _VERSION
+    encode: function (str) {
+      return encode(str);
+    },
   };
-      
-}( jQuery ) );
-
+})(jQuery);
